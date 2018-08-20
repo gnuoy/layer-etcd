@@ -34,6 +34,7 @@ class EtcdDatabag:
     def __init__(self):
         self.db = unitdata.kv()
         self.port = config('port')
+        self.http_port = str(int(config('port')) - 1)
         self.management_port = config('management_port')
         # Live polled properties
         self.public_address = unit_get('public-address')

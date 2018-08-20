@@ -35,3 +35,5 @@ restore:
       default: True
       description: |
         Dont backup any existing data, and skip directly to data restoration.
+render-and-restart:
+  description: Force the etcd config to be rendered and service restarted
