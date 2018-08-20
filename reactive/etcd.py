@@ -157,8 +157,10 @@ def leader_config_changed():
         close_open_ports()
         address = get_ingress_address('cluster')
         leader_set({'leader_address':
-                   get_connection_string([address],
-                                         bag.management_port)})
+                   get_connection_string(
+                       [address],
+                       bag.port,
+                       protocol='http')})
         host.service_restart(bag.etcd_daemon)
 
 
@@ -404,8 +406,11 @@ def initialize_new_leader():
         return
     # We have a healthy leader, broadcast initial data-points for followers
     open_port(bag.port)
-    leader_connection_string = get_connection_string([address],
-                                                     bag.port)
+    leader_connection_string = get_connection_string(
+        [address],
+        bag.port,
+        protocol='http')
+
     leader_set({'token': bag.token,
                 'leader_address': leader_connection_string,
                 'cluster': bag.cluster})
